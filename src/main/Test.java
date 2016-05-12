@@ -13,7 +13,7 @@ public class Test {
 		new Thread(new Runnable() {
 			
 			public void run() {
-				HaodouSpider.start(1067493, new LoadListener() {
+				HaodouSpider.start(1019074, new LoadListener() {
 					
 					public void onWebError() {
 						System.out.println("onWebError");

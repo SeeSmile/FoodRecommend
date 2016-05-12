@@ -1,3 +1,6 @@
+<%@page import="helper.AprioriHelper"%>
+<%@page import="data.HaodouEntity"%>
+<%@page import="db.HaodouDB"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -9,7 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'detail.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,13 +22,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
   <body>
-  	<form action="show.jsp" method="get">
-	  	<input type="text" name="keyword">
-	    <input type="submit" value="查找">
-  	</form>
+    <%
+    	String id = request.getParameter("id");
+    	HaodouDB db = new HaodouDB();
+    	HaodouEntity entity = db.getDetailFood(id);
+    	List<Set<String>> jj = AprioriHelper.getRecommend(id);
+    	if(jj.size() > 0) {
+     %>
+     	<%=jj.get(jj.size() - 1).toString() %>
+     <% } else { %>
+    <a>暂无推荐</a>
+     <% } %>
      
   </body>
 </html>

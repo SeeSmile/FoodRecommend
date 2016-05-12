@@ -1,3 +1,5 @@
+<%@page import="db.HaodouDB"%>
+<%@page import="org.json.JSONArray"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -9,7 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'show.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,13 +21,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
   <body>
-  	<form action="show.jsp" method="get">
-	  	<input type="text" name="keyword">
-	    <input type="submit" value="查找">
-  	</form>
-     
+   
+    <%
+    	String word = request.getParameter("keyword");
+    	HaodouDB db = new HaodouDB();
+    	JSONArray array = db.getFoodByKey(word, 1);
+    	for(int i = 0; i < array.length(); i++) { %>
+    		<div>
+    			<img alt="llll" src="<%=array.getJSONObject(i).optString("image") %>"/>
+    			<a class="food_title" href="<%="detail.jsp?id=" + array.getJSONObject(i).optString("id") %>"><%=array.getJSONObject(i).optString("title") %></a>
+    			<a class="food_tags"><%=array.getJSONObject(i).getString("tags") %></a>
+    		</div>
+    	<% } %>
+    	
+    
   </body>
 </html>

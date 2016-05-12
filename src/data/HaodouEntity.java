@@ -5,6 +5,12 @@ import com.google.gson.Gson;
 
 public class HaodouEntity {
 	
+	private String id;
+	
+	private String image;
+	
+	private String url;
+	
 	private String title;
 	
 	private String intro;
@@ -17,6 +23,30 @@ public class HaodouEntity {
 	
 	private List<Step> steps;
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public String getIntro() {
 		return intro;
 	}
@@ -91,6 +121,11 @@ public class HaodouEntity {
 		}
 		public void setText(String text) {
 			this.text = text;
+		}
+		
+		@Override
+		public String toString() {
+			return new Gson().toJson(this);
 		}
 	}
 }
